@@ -1,0 +1,21 @@
+.option p {
+  cursor: pointer;
+}
+.option p:active {
+  color: rgb(103, 94, 94);
+}
+.option {
+  display: flex;
+}
+.deleteBtn {
+  color: rgb(209, 39, 39);
+}
+.loadMoreBtn {
+  width: 150px;
+}
+.cont {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 30px;
+}

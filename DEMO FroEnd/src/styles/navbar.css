@@ -1,0 +1,8 @@
+.navbar {
+  margin: 0 auto;
+  width: 90%;
+  margin-bottom: 5%;
+}
+.active {
+  background-color: #8b89f9 !important;
+}

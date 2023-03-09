@@ -1,0 +1,14 @@
+.category-sec {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 50px;
+}
+.category {
+  width: 400px;
+  height: 200px;
+  background-color: #bfbeda;
+  cursor: pointer;
+}
+.category:hover {
+  background-color: #908ec1;
+}
