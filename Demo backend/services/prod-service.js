@@ -10,6 +10,10 @@ export async function ProductCate() {
   const [rows] = await pool.query(`SELECT * from category`);
   return rows;
 }
+export async function ProductBrand() {
+  const [rows] = await pool.query(`SELECT * from brands`);
+  return rows;
+}
 export async function getProductLoad(limit) {
   const [rows] = await pool.query(
     `SELECT products.*,brands.name as 'brand_name',category.name as 'category_name' FROM products INNER JOIN brands ON products.brand_id = brands.id INNER JOIN category ON products.category_id = category.id limit ${limit};`
@@ -19,6 +23,18 @@ export async function getProductLoad(limit) {
 
 export async function deleteProduct(id) {
   const [rows] = await pool.query(`DELETE from product where id=${id}`);
+  return rows;
+}
+export async function newCategory(newCategory) {
+  const [rows] = await pool.query(
+    `INSERT INTO category (name) VALUES (${newCategory})`
+  );
+  return rows;
+}
+export async function newBrand(newBrand) {
+  const [rows] = await pool.query(
+    `INSERT INTO brands (name) VALUES (${newBrand})`
+  );
   return rows;
 }
 

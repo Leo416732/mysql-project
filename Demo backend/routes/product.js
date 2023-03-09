@@ -5,6 +5,7 @@ import {
   deleteProduct,
   getProductLoad,
   ProductCate,
+  ProductBrand,
 } from "../services/prod-service.js";
 
 const Route = express.Router();
@@ -28,6 +29,23 @@ Route.get("/productLoad", async (req, res) => {
 
 Route.get("/productCate", async (req, res) => {
   const result = await ProductCate();
+  res.status(200).json(result);
+});
+
+Route.get("/productBrand", async (req, res) => {
+  let newBrand = req.body.query.param;
+  const result = await newBrand(newBrand);
+  res.status(200).json(result);
+});
+
+Route.get("/products/category", async (req, res) => {
+  let newCategory = req.body.query.param;
+  const result = await newCategory(newCategory);
+  res.status(200).json(result);
+});
+
+Route.get("/products/brand", async (req, res) => {
+  const result = await ProductBrand();
   res.status(200).json(result);
 });
 export default Route;
