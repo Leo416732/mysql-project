@@ -1,0 +1,38 @@
+.addBtn {
+  width: 200px;
+  margin: 8px 5%;
+  background-color: #8b89f9;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  height: 40px;
+}
+.input {
+  width: 40%;
+  padding: 5px;
+  margin: 8px 5%;
+}
+.input-add {
+  width: 90%;
+  margin: 8px 5%;
+  padding: 5px;
+}
+.select {
+  width: 40%;
+  margin: 8px 5%;
+}
+select {
+  height: 150px;
+}
+.form {
+  padding-bottom: 20px;
+}
+h3 {
+  margin: 0 5%;
+  color: rgb(90, 85, 85);
+  font-weight: 200;
+}
+.label {
+  margin: 0 5%;
+  color: #ccc;
+}

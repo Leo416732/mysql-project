@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useContext, useEffect, useState } from "react";
-import ProductsContext, { DataContext } from "../context/Data";
+import { Table } from "react-bootstrap";
+import { DataContext } from "../context/Data";
 import "../styles/category.css";
 
 export default function Category() {
@@ -16,13 +17,38 @@ export default function Category() {
   if (cateBtn) {
     return (
       <>
-        {data &&
-          data.map(
-            (product, i) =>
-              cateBtn == product.category_name && (
-                <div key={i}>{product.name}</div>
-              )
-          )}
+        <Table className="Products-table container" striped bordered hover>
+          <thead>
+            <tr>
+              <th>Image</th>
+              <th>Name</th>
+              <th>Price</th>
+              <th>Brand</th>
+              <th>Category</th>
+              <th>Sale</th>
+              <th>Options</th>
+            </tr>
+          </thead>
+          <tbody>
+            {data &&
+              data.map(
+                (prod, i) =>
+                  cateBtn == prod.category_name && (
+                    <tr key={i}>
+                      <td>{prod.image.slice(0, 15)}</td>
+                      <td>{prod.name}</td>
+                      <td>{prod.price}</td>
+                      <td>{prod.brand_name}</td>
+                      <td>{prod.category_name}</td>
+                      <td>{prod.sale}</td>
+                      <td className="option">
+                        <p>edit </p>/ <p className="deleteBtn">delete</p>
+                      </td>
+                    </tr>
+                  )
+              )}{" "}
+          </tbody>
+        </Table>
       </>
     );
   } else {
