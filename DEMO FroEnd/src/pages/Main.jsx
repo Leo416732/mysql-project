@@ -10,24 +10,15 @@ export default function Main() {
   const [activeBtn, setActiveBtn] = useState(
     localStorage.getItem("current") ? localStorage.getItem("current") : "all"
   );
-  function pageHandle() {
-    if (activeBtn == "all") {
-      return <Products />;
-    } else if (activeBtn == "add") {
-      return <AddProducts />;
-    } else if (activeBtn == "load") {
-      return <Load_More />;
-    } else if (activeBtn == "cate-fil") {
-      return <Category />;
-    } else if (activeBtn == "brand-fil") {
-      return <Brand />;
-    }
-  }
 
   return (
     <div>
       <Navbar setActiveBtn={setActiveBtn} activeBtn={activeBtn} />
-      <div>{pageHandle()}</div>
+      <div>{activeBtn == "all" && <Products />}</div>
+      <div>{activeBtn == "add" && <AddProducts />}</div>
+      <div>{activeBtn == "load" && <Load_More />}</div>
+      <div>{activeBtn == "cate-fil" && <Category />}</div>
+      <div>{activeBtn == "brand-fil" && <Brand />}</div>
     </div>
   );
 }

@@ -13,7 +13,7 @@
   margin: 8px 5%;
 }
 .input-add {
-  width: 90%;
+  width: 40%;
   margin: 8px 5%;
   padding: 5px;
 }
@@ -22,7 +22,7 @@
   margin: 8px 5%;
 }
 select {
-  height: 150px;
+  height: 35px;
 }
 .form {
   padding-bottom: 20px;
@@ -34,5 +34,14 @@ h3 {
 }
 .label {
   margin: 0 5%;
+  width: 90%;
   color: #ccc;
+}
+.success {
+  display: flex;
+  margin: 0 5%;
+}
+.success p {
+  margin-top: 9px;
+  color: #18c572;
 }

@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import Success from "../icons/Success";
 import "../styles/addProduct.css";
 
 export default function AddProducts() {
@@ -8,34 +9,54 @@ export default function AddProducts() {
   const [newBrand, setNewBrand] = useState();
   const [newCategory, setNewCategory] = useState();
   const [toggle, setToggle] = useState(true);
-
-  // function sendNewCategory(newCategory) {
-  //   setToggle(!toggle);
-  //   axios
-  //     .post(`http://localhost:4000/products/category?param=${newCategory}`)
-  //     .then((res) => console.log(res));
-  // }
-
-  // function sendNewBrand(newBrand) {
-  //   setToggle(!toggle);
-  //   axios.post(`http://localhost:4000/products/brand?param=${newBrand}`);
-  //   // .then((res) => setToggle(!toggle),setBrands());
-  // }
+  const [savedAlert, setSavedAlert] = useState(false);
 
   useEffect(() => {
     axios
       .get("http://localhost:4000/productCate")
       .then((categories) => setCategories(categories.data));
-  }, [toggle]);
+  }, [!toggle]);
 
   useEffect(() => {
     axios
       .get("http://localhost:4000/productBrand")
       .then((brands) => setBrands(brands.data));
-  }, [toggle]);
+  }, [!toggle]);
+
+  function sendNewCategory(newCategory) {
+    setToggle(!toggle);
+    axios.post(`http://localhost:4000/products/category?param=${newCategory}`);
+  }
+
+  function sendNewBrand(newBrand) {
+    setToggle(!toggle);
+    axios.post(`http://localhost:4000/products/brand?param=${newBrand}`);
+  }
 
   function addProduct(e) {
+    let addPro = {
+      name: e.target.name.value,
+      image: e.target.image.value,
+      price: e.target.price.value,
+      sale: e.target.sale.value,
+      brand_name: e.target.brand.value,
+      category_name: e.target.category.value,
+    };
     e.preventDefault();
+    axios
+      .post(`http://localhost:4000/product/add`, addPro)
+      .then((res) => setSavedAlert(true));
+    e.target.name.value = "";
+    e.target.image.value = "";
+    e.target.price.value = "";
+    e.target.sale.value = "";
+    e.target.brand.value = "";
+    e.target.category.value = "";
+
+    const timer = setTimeout(() => {
+      setSavedAlert(false);
+    }, 3000);
+    return () => clearTimeout(timer);
   }
 
   return (
@@ -64,7 +85,7 @@ export default function AddProducts() {
               placeholder="image"
               type="text"
             />
-            <select name="asd" className="select" type="text">
+            <select name="brand" className="select" type="text">
               {brands &&
                 brands.map((brand, i) => (
                   <option key={i} value={brand.name}>
@@ -78,7 +99,7 @@ export default function AddProducts() {
           <label htmlFor="" className="label">
             Category
           </label>
-          <select className="input-add" type="text">
+          <select className="input-add" name="category" type="text">
             {categories &&
               categories.map((cate, i) => (
                 <option key={i} value={cate.name}>
@@ -86,11 +107,18 @@ export default function AddProducts() {
                 </option>
               ))}
           </select>
+          <input type="text" className="input" name="sale" placeholder="sale" />
         </div>
         <button className="addBtn" type="submit">
           add +
         </button>
       </form>
+      {savedAlert && (
+        <div className="success">
+          <Success />
+          <p>Succefully saved product</p>
+        </div>
+      )}
       <div>
         <h3>Add Category</h3>
         <input
@@ -101,21 +129,28 @@ export default function AddProducts() {
       </div>
       <button
         className="addBtn"
-        // onClick={((e) => e.preventDefault(), sendNewCategory(newCategory))}
+        onClick={(e) => {
+          sendNewCategory(newCategory);
+          e.target.value = "";
+        }}
       >
-        Add Category +
+        add category +
       </button>
       <div>
         <h3>Add Brand</h3>
         <input
           className="input-add"
-          onChange={(e) => setNewBrand(e.target.value)}
+          onChange={(e) => {
+            setNewBrand(e.target.value);
+          }}
           type="text"
         />
       </div>
       <button
         className="addBtn"
-        // onClick={((e) => e.preventDefault(), sendNewBrand(newBrand))}
+        onClick={() => {
+          sendNewBrand(newBrand);
+        }}
       >
         add brand +
       </button>

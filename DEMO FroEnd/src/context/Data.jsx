@@ -11,7 +11,19 @@ export default function ProductsContext({ children }) {
       .then((data) => setData(data.data));
   }, []);
 
+  function prodDeleteHandler(id) {
+    axios
+      .delete(`http://localhost:4000/product/delete?id=${id}`)
+      .then(
+        (res) =>
+          res.data.success &&
+          setData(data.filter((product) => product.id !== id))
+      );
+  }
+
   return (
-    <DataContext.Provider value={{ data }}>{children}</DataContext.Provider>
+    <DataContext.Provider value={{ data, setData, prodDeleteHandler }}>
+      {children}
+    </DataContext.Provider>
   );
 }

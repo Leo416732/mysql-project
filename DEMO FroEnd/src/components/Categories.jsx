@@ -7,13 +7,14 @@ import "../styles/category.css";
 export default function Category() {
   const [categories, setCategories] = useState();
   const [cateBtn, setCateBtn] = useState();
+  const { data, prodDeleteHandler } = useContext(DataContext);
 
-  const { data } = useContext(DataContext);
   useEffect(() => {
     axios
       .get("http://localhost:4000/productCate")
       .then((categories) => setCategories(categories.data));
   }, []);
+
   if (cateBtn) {
     return (
       <>
@@ -42,7 +43,13 @@ export default function Category() {
                       <td>{prod.category_name}</td>
                       <td>{prod.sale}</td>
                       <td className="option">
-                        <p>edit </p>/ <p className="deleteBtn">delete</p>
+                        <p>edit </p>/{" "}
+                        <p
+                          className="deleteBtn"
+                          onClick={() => prodDeleteHandler(prod.id)}
+                        >
+                          delete
+                        </p>
                       </td>
                     </tr>
                   )

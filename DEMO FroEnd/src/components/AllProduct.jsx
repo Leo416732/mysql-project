@@ -1,26 +1,29 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Table } from "react-bootstrap";
 import "../styles/table.css";
 import "../styles/product.css";
+import { DataContext } from "../context/Data";
 
 export default function Products() {
-  useEffect(() => {
+  const { prodDeleteHandler, data, setData } = useContext(DataContext);
+
+  function descPrice() {
     axios
-      .get("http://localhost:4000/products")
-      .then((data) => setData(data.data));
-  }, []);
-  const [data, setData] = useState();
+      .get(`http://localhost:4000/price/desc`)
+      .then((res) => setData(res.data));
+  }
 
   return (
     <div>
-      {" "}
       <Table className="Products-table container" striped bordered hover>
         <thead>
           <tr>
             <th>Image</th>
             <th>Name</th>
-            <th>Price</th>
+            <th onClick={descPrice}>
+              <button>Price</button>
+            </th>
             <th>Brand</th>
             <th>Category</th>
             <th>Sale</th>
@@ -39,7 +42,13 @@ export default function Products() {
                   <td>{prod.category_name}</td>
                   <td>{prod.sale}</td>
                   <td className="option">
-                    <p>edit </p>/ <p className="deleteBtn">delete</p>
+                    <p>edit </p>/{" "}
+                    <p
+                      className="deleteBtn"
+                      onClick={() => prodDeleteHandler(prod.id)}
+                    >
+                      delete
+                    </p>
                   </td>
                 </tr>
               );
