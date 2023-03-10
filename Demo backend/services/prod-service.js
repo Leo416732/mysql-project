@@ -22,31 +22,41 @@ export async function getProductLoad(limit) {
 }
 
 export async function deleteProduct(id) {
-  const [rows] = await pool.query(`DELETE from product where id=${id}`);
+  const [rows] = await pool.query(`DELETE from products where id=${id}`);
   return rows;
 }
 export async function newCategory(newCategory) {
   const [rows] = await pool.query(
-    `INSERT INTO category (name) VALUES (${newCategory})`
+    `INSERT INTO category (name) VALUES ('${newCategory}')`
   );
   return rows;
 }
 export async function newBrand(newBrand) {
   const [rows] = await pool.query(
-    `INSERT INTO brands (name) VALUES (${newBrand})`
+    `INSERT INTO brands (name) VALUES ('${newBrand}')`
   );
   return rows;
 }
 
 export async function postProduct(prod) {
-  const [rows] = await pool.query("select * from category");
-  await rows.find(
-    (cate) =>
-      cate.name === prod.category &&
-      pool.query(
-        `INSERT INTO product (price,stock,sale,name,category_id) VALUES(${Number(
-          prod.price
-        )},${Number(prod.stock)},'${prod.sale}','${prod.name}',${cate.id})`
-      )
+  const [categ] = await pool.query("select * from category");
+  const [brand] = await pool.query("select * from brands");
+  const newProduct = await brand.find((brand) =>
+    categ.find(
+      (cate) =>
+        cate.name === prod.category_name &&
+        brand.name === prod.brand_name &&
+        pool.query(
+          `INSERT INTO products (image,price,sale,name,category_id,brand_id) VALUES('${prod.image}',${prod.price},${prod.sale},'${prod.name}',${cate.id},${brand.id})`
+        )
+    )
   );
+  return newProduct;
+}
+
+export async function PriceDesc() {
+  const [rows] = await pool.query(
+    `SELECT products.*,brands.name as 'brand_name',category.name as 'category_name' FROM products INNER JOIN brands ON products.brand_id = brands.id INNER JOIN category ON products.category_id = category.id order by price desc`
+  );
+  return rows;
 }

@@ -6,6 +6,9 @@ import {
   getProductLoad,
   ProductCate,
   ProductBrand,
+  newCategory,
+  newBrand,
+  PriceDesc,
 } from "../services/prod-service.js";
 
 const Route = express.Router();
@@ -13,7 +16,6 @@ const Route = express.Router();
 Route.get("/products", async (req, res) => {
   const result = await getProduct();
   res.status(200).json(result);
-  console.log(result);
 });
 
 Route.post("/product", async (req, res) => {
@@ -33,19 +35,35 @@ Route.get("/productCate", async (req, res) => {
 });
 
 Route.get("/productBrand", async (req, res) => {
-  let newBrand = req.body.query.param;
-  const result = await newBrand(newBrand);
-  res.status(200).json(result);
-});
-
-Route.get("/products/category", async (req, res) => {
-  let newCategory = req.body.query.param;
-  const result = await newCategory(newCategory);
-  res.status(200).json(result);
-});
-
-Route.get("/products/brand", async (req, res) => {
   const result = await ProductBrand();
+  res.status(200).json(result);
+});
+
+Route.delete("/product/delete", async (req, res) => {
+  const result = await deleteProduct(req.query.id);
+  res.status(200).send({ success: "ok" });
+});
+
+Route.post("/products/category", async (req, res) => {
+  let newCate = req.query.param;
+  const result = await newCategory(newCate);
+  res.status(200).json(result);
+});
+
+Route.post("/products/brand", async (req, res) => {
+  let newBra = req.query.param;
+  const result = await newBrand(newBra);
+  res.status(200).json(result);
+});
+
+Route.post("/product/add", async (req, res) => {
+  let newPro = req.body;
+  const result = await postProduct(newPro);
+  res.status(200).send({ success: "ok" });
+});
+
+Route.get("/price/desc", async (req, res) => {
+  const result = await PriceDesc();
   res.status(200).json(result);
 });
 export default Route;
