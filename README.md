@@ -1,1 +1,2 @@
-# TEMP-proj
+# mysql first project 
+
