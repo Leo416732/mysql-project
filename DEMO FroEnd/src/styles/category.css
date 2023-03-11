@@ -1,10 +1,12 @@
 .category-sec {
   display: flex;
   flex-wrap: wrap;
-  gap: 50px;
+  gap: 70px;
+  width: 90%;
+  margin: 0 6%;
 }
 .category {
-  width: 400px;
+  width: 350px;
   height: 200px;
   background-color: #bfbeda;
   cursor: pointer;

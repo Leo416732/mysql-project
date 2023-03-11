@@ -37,10 +37,10 @@ export default function Products() {
                 <tr key={i}>
                   <td>{prod.image.slice(0, 15)}</td>
                   <td>{prod.name}</td>
-                  <td>{prod.price}</td>
+                  <td>{prod.price}$</td>
                   <td>{prod.brand_name}</td>
                   <td>{prod.category_name}</td>
-                  <td>{prod.sale}</td>
+                  <td>{prod.sale}%</td>
                   <td className="option">
                     <p>edit </p>/{" "}
                     <p
